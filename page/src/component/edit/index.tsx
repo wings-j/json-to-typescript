@@ -1,43 +1,50 @@
 /**
- * JSON编辑器
+ * 编辑器
  */
 
-import React, { useEffect, useRef, memo } from 'react'
+import { useEffect, useRef, memo } from 'react'
+import './index.css'
 import JsonEditor from 'jsoneditor'
 import 'jsoneditor/dist/jsoneditor.css'
 
 interface Props {
+  className?: string
   onInput: (value: string) => void
 }
 
 /**
  * @name 编辑
  */
-function Edit(props: Props) {
+function component(props: Props) {
   const textarea = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    let editor: JsonEditor
-
     if (textarea.current) {
-      new JsonEditor(textarea.current, {
+      let editor: JsonEditor = new JsonEditor(textarea.current, {
         mode: 'code',
         mainMenuBar: false,
         statusBar: false,
-        onChange: () => props.onInput(editor.get())
+        onChange: () => {
+          try {
+            props.onInput(editor.get())
+            textarea.current?.classList.remove('error')
+          } catch (er) {
+            textarea.current?.classList.add('error')
+          }
+        }
       })
-    }
 
-    return () => {
-      editor.destroy()
+      return () => {
+        editor.destroy()
+      }
     }
   })
 
   return (
-    <div className='Edit'>
-      <div ref={textarea}></div>
+    <div className={props.className ?? ''}>
+      <div className='h-full' ref={textarea}></div>
     </div>
   )
 }
 
-export default memo(Edit, () => true)
+export default memo(component, () => true)
