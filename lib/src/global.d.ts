@@ -19,6 +19,6 @@ interface Complex {
 }
 
 /**
- * 键值对
+ * 映射
  */
-type Tree = Record<string, BasicString | Tree>
+type TypeMap = Record<string, BasicString | TypeMap> | (BasicString | TypeMap)[]

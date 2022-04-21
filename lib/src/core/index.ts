@@ -4,6 +4,7 @@
 
 import Resolve from './module/resolve'
 import Config, { reset } from './config'
+import Transform from './module/transform'
 
 /**
  * 方法
@@ -27,7 +28,10 @@ function core(raw: string | Complex, config?: Option) {
 
   Object.assign(Config, reset, config)
 
-  return Resolve(raw as Complex)
+  let map = Resolve(raw)
+  let result = Transform(map)
+
+  return result
 }
 
 export default core

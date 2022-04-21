@@ -1,5 +1,5 @@
 /**
- * 转换对象
+ * 解析
  */
 
 import IsJson from '../util/is-json'
@@ -10,7 +10,7 @@ import { JudgeType } from '@wings-j/js-sdk'
 /**
  * 解析基础
  * @param value 值
- * @return 结果
+ * @return 类型
  */
 function basic(value: Basic) {
   let type = JudgeType(value) as BasicString
@@ -21,13 +21,13 @@ function basic(value: Basic) {
 /**
  * 递归
  * @param value 值
- * @return 结果
+ * @return 映射
  */
-function recursive(value: Complex) {
+function recursive(value: Complex): TypeMap | undefined {
   if (IsJson(value)) {
     if (Array.isArray(value)) {
       if (Config.array === 'tuple') {
-        let array: (BasicString | Tree)[] = []
+        let array: TypeMap = []
 
         value.forEach(a => {
           let type = IsBasic(a) ? basic(a) : recursive(a)
@@ -38,7 +38,7 @@ function recursive(value: Complex) {
 
         return array
       } else {
-        let set = new Set<BasicString | Tree>()
+        let set = new Set<BasicString | TypeMap>()
 
         value.forEach(a => {
           let type = IsBasic(a) ? basic(a) : recursive(a)
@@ -50,7 +50,7 @@ function recursive(value: Complex) {
         return Array.from(set)
       }
     } else {
-      let tree: Tree = {}
+      let tree: TypeMap = {}
       Object.keys(value).forEach(a => {
         let type = IsBasic(value[a]) ? basic(value[a]) : recursive(value[a])
         if (type) {
@@ -64,11 +64,12 @@ function recursive(value: Complex) {
 }
 
 /**
- * 转换对象
+ * 函数
  * @param value 值
+ * @return 映射
  */
-function resolveComplex(value: Complex) {
+function resolve(value: Complex): TypeMap | undefined {
   return recursive(value)
 }
 
-export default resolveComplex
+export default resolve
