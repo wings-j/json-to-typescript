@@ -1,6 +1,0 @@
-src
-.gitignore
-babel.config.js
-jest.config.js
-rollup.config.js
-tsconfig.json

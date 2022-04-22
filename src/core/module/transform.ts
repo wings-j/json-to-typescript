@@ -1,8 +1,10 @@
 /**
  * 转换
+ * @param 对象转换为字符串
  */
 
 import Config from '../config'
+import FitName from '../util/fit-name'
 
 /**
  * 递归
@@ -25,7 +27,7 @@ function recursive(value: TypeMap) {
   } else {
     let temp: string[] = []
     Object.keys(value).forEach(a => {
-      temp.push(`${a}:${typeof value[a] === 'string' ? value[a] : recursive(value[a])}`)
+      temp.push(`${FitName(a)}:${typeof value[a] === 'string' ? value[a] : recursive(value[a])}`)
     })
 
     return `{${temp.join(';')}}`

@@ -26,6 +26,10 @@ function basic(value: Basic) {
 function recursive(value: Complex): TypeMap | undefined {
   if (IsJson(value)) {
     if (Array.isArray(value)) {
+      if (!value.length) {
+        return '[]'
+      }
+
       if (Config.array === 'tuple') {
         let array: TypeMap = []
 

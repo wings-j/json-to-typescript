@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './index.css'
 import Edit from '@/component/edit'
 import Preview from '@/component/preview'
-import JsonToTypescript from '@wings-j/json-to-typescript'
+import JsonToTypescript from '@/core'
 import RightArrow from './image/right-arrow.svg'
 
 function App() {
