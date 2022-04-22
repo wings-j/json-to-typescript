@@ -1,50 +1,33 @@
 /**
- * 编辑器
+ * 编辑
  */
 
-import { useEffect, useRef, memo } from 'react'
-import './index.css'
-import JsonEditor from 'jsoneditor'
-import 'jsoneditor/dist/jsoneditor.css'
+import { useEffect, useRef } from 'react'
+import * as Monaco from 'monaco-editor'
+import { common } from '@/config/monaco'
 
-interface Props {
-  className?: string
-  onInput: (value: string) => void
-}
-
-/**
- * @name 编辑
- */
-function component(props: Props) {
-  const textarea = useRef<HTMLDivElement>(null)
+export default function (props: { className?: string; onInput: (value: string) => void }) {
+  const container = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (textarea.current) {
-      let editor: JsonEditor = new JsonEditor(textarea.current, {
-        mode: 'code',
-        mainMenuBar: false,
-        statusBar: false,
-        onChange: () => {
-          try {
-            props.onInput(editor.get())
-            textarea.current?.classList.remove('error')
-          } catch (er) {
-            textarea.current?.classList.add('error')
-          }
-        }
+    if (container.current) {
+      let editor = Monaco.editor.create(container.current, {
+        ...common,
+        language: 'json'
+      })
+      editor.onKeyUp(() => {
+        props.onInput(editor.getValue())
       })
 
       return () => {
-        editor.destroy()
+        editor.dispose()
       }
     }
-  })
+  }, [container])
 
   return (
-    <div className={props.className ?? ''}>
-      <div className='h-full' ref={textarea}></div>
+    <div className={(props.className ?? '') + ' py-10px border-gray-300 border-1px whitespace-pre-wrap bg-white'}>
+      <div style={{ height: '100%' }} ref={container}></div>
     </div>
   )
 }
-
-export default memo(component, () => true)

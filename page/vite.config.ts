@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import Windicss from 'vite-plugin-windicss'
 import Path from 'path'
+import VitePluginMonacoEditor from 'vite-plugin-monaco-editor'
 
 export default defineConfig({
   base: './',
@@ -13,5 +14,5 @@ export default defineConfig({
   build: {
     target: 'esnext'
   },
-  plugins: [react(), Windicss()]
+  plugins: [react(), Windicss(), VitePluginMonacoEditor()]
 })

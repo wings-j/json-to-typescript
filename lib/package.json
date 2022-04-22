@@ -1,6 +1,6 @@
 {
   "name": "@wings-j/json-to-typescript",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "JSON对象转Typescript接口",
   "author": "WingsJ",
   "type": "module",
