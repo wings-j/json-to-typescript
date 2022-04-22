@@ -4,7 +4,7 @@ import Windicss from 'vite-plugin-windicss'
 import Path from 'path'
 import VitePluginMonacoEditor from 'vite-plugin-monaco-editor'
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   base: './',
   resolve: {
     alias: {
@@ -18,8 +18,8 @@ export default defineConfig({
     react(),
     Windicss(),
     VitePluginMonacoEditor({
-      languageWorkers: ['json', 'typescript'],
-      publicPath: './'
+      languageWorkers: ['editorWorkerService', 'json', 'typescript'],
+      publicPath: 'https://unpkg.com/vite-plugin-monaco-editor@1.0.5/cdn' // 使用CDN资源
     })
   ]
-})
+}))
