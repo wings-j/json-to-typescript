@@ -14,5 +14,12 @@ export default defineConfig({
   build: {
     target: 'esnext'
   },
-  plugins: [react(), Windicss(), VitePluginMonacoEditor()]
+  plugins: [
+    react(),
+    Windicss(),
+    VitePluginMonacoEditor({
+      languageWorkers: ['json', 'typescript'],
+      publicPath: './'
+    })
+  ]
 })
