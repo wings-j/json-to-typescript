@@ -18,6 +18,8 @@ function recursive(value: TypeMap) {
     if (Config.array === 'tuple') {
       return `[${temp.join(',')}]`
     } else {
+      temp = Array.from(new Set(temp))
+
       if (temp.length > 1) {
         return `(${temp.join('|')})[]`
       } else {

@@ -20,7 +20,7 @@ export default defineConfig(({ mode }) => ({
     Windicss(),
     VitePluginMonacoEditor({
       languageWorkers: ['editorWorkerService', 'json', 'typescript'],
-      publicPath: 'https://unpkg.com/vite-plugin-monaco-editor@1.0.5/cdn' // 使用CDN资源
+      publicPath: 'https://works-wings.oss-cn-hangzhou.aliyuncs.com/json-to-typescript/worker' // 使用CDN资源
     })
   ]
 }))
